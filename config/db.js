@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-require('dotenv').config({ path: '.env' })
+require('dotenv').config({ path: 'variables.env' })
 
 const connectDB = async () => {
     try {
@@ -10,7 +10,7 @@ const connectDB = async () => {
         })
         console.log('DB CONNECTED');
     } catch (error) {
-        console.log(error);
+        console.log('Hubo un error');
         process.exit(1)
     }
 }
