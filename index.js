@@ -25,5 +25,5 @@ app.use('/api/tasks', require('./routes/tasks'))
 
 //Iniciar el server
 app.listen(port, '0.0.0.0', () => {
-    console.log(`Server deployed in port ${PORT}`);
+    console.log(`Server deployed in port ${port}`);
 })
