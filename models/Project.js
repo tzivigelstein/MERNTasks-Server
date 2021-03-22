@@ -8,7 +8,7 @@ const ProjectSchema = mongoose.Schema({
     },
     owner: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Usuario'
+        ref: 'User'
     },
     date: {
         type: Date,
