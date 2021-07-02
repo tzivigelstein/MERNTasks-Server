@@ -2,6 +2,7 @@ const User = require('../models/User')
 const bcryptjs = require('bcryptjs')
 const { validationResult } = require('express-validator')
 const jwt = require('jsonwebtoken')
+const { secret } = require('../config/vars')
 
 exports.newUser = async (req, res) => {
   //Revisar si hay errores
@@ -41,7 +42,7 @@ exports.newUser = async (req, res) => {
     //Firmar el Token
     jwt.sign(
       payload,
-      process.env.CODE,
+      secret,
       {
         expiresIn: 3600, // 1 Hora
       },
