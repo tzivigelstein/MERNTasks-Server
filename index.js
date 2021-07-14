@@ -13,10 +13,9 @@ connectDB()
 
 const config = {
   origin: frontendUrl,
-  optionsSuccessStatus: 204,
 }
 
-console.log(config)
+console.log({ origin: frontendUrl })
 
 //Enable CORS
 app.use(cors(config))
