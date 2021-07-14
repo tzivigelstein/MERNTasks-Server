@@ -11,12 +11,15 @@ console.log(frontendUrl)
 //Conectar a la base de datos
 connectDB()
 
-const origin = {
+const config = {
   origin: frontendUrl,
+  optionsSuccessStatus: 204,
 }
 
+console.log(config)
+
 //Enable CORS
-app.use(cors(origin))
+app.use(cors(config))
 
 //Enable JSON parsing
 app.use(express.json())
