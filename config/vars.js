@@ -13,7 +13,7 @@ const enviroment = NODE_ENV || 'development'
 const port = PORT || 4000
 const frontendUrl = enviroment === 'production' ? PRODUCTION_FRONTEND_URL : DEVELOPMENT_FRONTEND_URL
 
-console.log('Node enviroment', NODE_ENV)
+console.log('Node enviroment', NODE_ENV, 'Enviroment', enviroment)
 
 module.exports = {
   database,
