@@ -1,14 +1,10 @@
-//Rutas para autenticar usuarios
 const express = require('express')
 const router = express.Router()
-const { check } = require('express-validator')
-const authDriver = require('../controllers/authDriver')
+const authController = require('../controllers/authController')
 const auth = require('../middlewares/auth')
 
-//Autenticar un user
-//api/auth
-router.post('/', authDriver.authUser)
+router.post('/', authController.authUser)
 
-router.get('/', auth, authDriver.authLog)
+router.get('/', auth, authController.authLog)
 
 module.exports = router

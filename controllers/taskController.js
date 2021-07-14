@@ -65,11 +65,9 @@ exports.getTasks = async (req, res) => {
 //Actualizar tareas
 exports.updateTasks = async (req, res) => {
   try {
-    //Extraer el proyecto y comprobar su existencia
     const { project, name, state } = req.body
     const { id } = req.params
 
-    //Verificar la existencia de la tarea
     let task = await Task.findOne({ _id: id })
 
     if (!task) {
@@ -81,8 +79,6 @@ exports.updateTasks = async (req, res) => {
 
     //Verificar si el proyecto le pertenece
     if (existentProject.owner.toString() !== req.user.id) {
-      console.log(req.user.id)
-      console.log(existentProject.toString())
       return res.status(401).json({ msg: 'Not permited' })
     }
 

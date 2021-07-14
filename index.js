@@ -1,27 +1,33 @@
 const express = require('express')
 const connectDB = require('./config/db')
 const cors = require('cors')
-const { port } = require('./config/vars')
+const { port, frontendUrl } = require('./config/vars')
 
 //Crear server
 const app = express()
 
+console.log(frontendUrl)
+
 //Conectar a la base de datos
 connectDB()
 
-//Habilitar CORS
-app.use(cors())
+const origin = {
+  origin: frontendUrl,
+}
 
-//Habilitar express.json
+//Enable CORS
+app.use(cors(origin))
+
+//Enable JSON parsing
 app.use(express.json())
 
-//Importar rutas
+//Import routes
 app.use('/api/users', require('./routes/users'))
 app.use('/api/auth', require('./routes/auth'))
 app.use('/api/projects', require('./routes/projects'))
 app.use('/api/tasks', require('./routes/tasks'))
 
 //Iniciar el server
-app.listen(port, '0.0.0.0', () => {
+app.listen(port, () => {
   console.log(`Server deployed in port ${port}`)
 })

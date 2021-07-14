@@ -1,7 +1,7 @@
 //Rutas para crear usuarios
 const express = require('express')
 const router = express.Router()
-const userDriver = require('../controllers/userDriver')
+const userController = require('../controllers/userController')
 const { check } = require('express-validator')
 
 //Crear un user
@@ -13,7 +13,7 @@ router.post(
     check('email', 'We need an email').isEmail(),
     check('password', 'We need at least 6 characters').isLength({ min: 6 }),
   ],
-  userDriver.newUser
+  userController.newUser
 )
 
 module.exports = router

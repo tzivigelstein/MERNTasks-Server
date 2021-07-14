@@ -1,4 +1,5 @@
 const Project = require('../models/Project')
+const Task = require('../models/Task')
 const { validationResult } = require('express-validator')
 
 exports.newProject = async (req, res) => {

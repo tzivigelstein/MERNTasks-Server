@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const taskDriver = require('../controllers/taskDriver')
+const taskController = require('../controllers/taskController')
 const auth = require('../middlewares/auth')
 const { check } = require('express-validator')
 
@@ -10,19 +10,19 @@ router.post(
   '/',
   auth,
   [check('name', 'Name is required').not().isEmpty(), check('project', 'Project is required').not().isEmpty()],
-  taskDriver.newTask
+  taskController.newTask
 )
 
 //Obtener tareas
 //api/tasks
-router.get('/', auth, taskDriver.getTasks)
+router.get('/', auth, taskController.getTasks)
 
 //Actualizar tareas
 //api/tasks
-router.put('/:id', auth, taskDriver.updateTasks)
+router.put('/:id', auth, taskController.updateTasks)
 
 //Eliminar tareas
 //api/tasks
-router.delete('/:id', auth, taskDriver.deleteTasks)
+router.delete('/:id', auth, taskController.deleteTasks)
 
 module.exports = router
