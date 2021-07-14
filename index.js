@@ -18,7 +18,7 @@ const config = {
 console.log({ origin: frontendUrl })
 
 //Enable CORS
-app.use(cors(config))
+app.use(cors({ origin: frontendUrl }))
 
 //Enable JSON parsing
 app.use(express.json())
