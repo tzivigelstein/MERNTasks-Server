@@ -11,12 +11,6 @@ console.log(frontendUrl)
 //Conectar a la base de datos
 connectDB()
 
-const config = {
-  origin: frontendUrl,
-}
-
-console.log({ origin: frontendUrl })
-
 //Enable CORS
 app.use(cors({ origin: frontendUrl }))
 
