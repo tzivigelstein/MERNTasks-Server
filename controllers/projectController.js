@@ -19,8 +19,8 @@ exports.newProject = async (req, res) => {
     //Se guarda el proyecto
     project.save()
     res.json(project)
-  } catch (err) {
-    console.log(err)
+  } catch (error) {
+    console.log(error)
     res.status(500).send('There was an error')
   }
 }
@@ -30,8 +30,8 @@ exports.getProjects = async (req, res) => {
   try {
     const projects = await Project.find({ owner: req.user.id })
     res.json(projects)
-  } catch (err) {
-    console.log(err)
+  } catch (error) {
+    console.log(error)
     res.status(500).send('There was an error')
   }
 }
@@ -68,8 +68,8 @@ exports.updateProject = async (req, res) => {
     //Actualizar
     project = await Project.findByIdAndUpdate({ _id: req.params.id }, { $set: newProject }, { new: true })
     res.json({ project })
-  } catch (err) {
-    console.log(err)
+  } catch (error) {
+    console.log(error)
     res.status(500).send('There was an error')
   }
 }
@@ -94,7 +94,7 @@ exports.deleteProject = async (req, res) => {
     await Project.findOneAndRemove({ _id: req.params.id })
     res.json({ msg: 'Deleted' })
   } catch (error) {
-    console.log(err)
+    console.log(error)
     res.status(500).send('There was an error')
   }
 }

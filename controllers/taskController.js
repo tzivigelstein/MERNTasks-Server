@@ -30,8 +30,8 @@ exports.newTask = async (req, res) => {
     const task = new Task(req.body)
     await task.save()
     res.json({ task })
-  } catch (err) {
-    console.log(err)
+  } catch (error) {
+    console.log(error)
     res.status(500).send('There was an error')
   }
 }
@@ -56,8 +56,8 @@ exports.getTasks = async (req, res) => {
     //Obtener tareas
     const tasks = await Task.find({ project }).sort({ date: -1 })
     res.json({ tasks })
-  } catch (err) {
-    console.log(err)
+  } catch (error) {
+    console.log(error)
     res.status(500).send('There was an error')
   }
 }
@@ -92,7 +92,7 @@ exports.updateTasks = async (req, res) => {
     task = await Task.findOneAndUpdate({ _id: req.params.id }, newTask, { new: true })
 
     res.json({ task })
-  } catch (err) {
+  } catch (error) {
     console.log(error)
     res.status(500).send('There was an error')
   }
@@ -116,16 +116,14 @@ exports.deleteTasks = async (req, res) => {
 
     //Verificar si el proyecto le pertenece
     if (existentProject.owner.toString() !== req.user.id) {
-      console.log(req.user.id)
-      console.log(existentProject.toString())
       return res.status(401).json({ msg: 'Not permited' })
     }
 
     //Eliminar
     await Task.findOneAndRemove({ _id: req.params.id })
     res.json({ msg: 'Deleted successfully' })
-  } catch (err) {
-    console.log(err)
+  } catch (error) {
+    console.log(error)
     res.status(500).send('There was an error')
   }
 }

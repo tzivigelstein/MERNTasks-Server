@@ -6,8 +6,6 @@ const { port, frontendUrl } = require('./config/vars')
 //Crear server
 const app = express()
 
-console.log(frontendUrl)
-
 //Conectar a la base de datos
 connectDB()
 
@@ -23,7 +21,7 @@ app.use('/api/auth', require('./routes/auth'))
 app.use('/api/projects', require('./routes/projects'))
 app.use('/api/tasks', require('./routes/tasks'))
 
-//Iniciar el server
+//Init server
 app.listen(port, () => {
   console.log(`Server deployed in port ${port}`)
 })

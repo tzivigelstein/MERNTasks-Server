@@ -6,9 +6,9 @@ const { secret } = require('../config/vars')
 
 exports.authUser = async (req, res) => {
   //Revisar si hay errores
-  const err = validationResult(req)
-  if (!err.isEmpty()) {
-    return res.status(400).json({ errors: err.array() })
+  const error = validationResult(req)
+  if (!error.isEmpty()) {
+    return res.status(400).json({ errors: error.array() })
   }
 
   //Extraer email y password
@@ -41,13 +41,13 @@ exports.authUser = async (req, res) => {
       {
         expiresIn: 3600, // 1 Hora
       },
-      (err, token) => {
-        if (err) throw err
+      (error, token) => {
+        if (error) throw error
         res.json({ token })
       }
     )
-  } catch (err) {
-    console.log(err)
+  } catch (error) {
+    console.log(error)
     res.status(400).send('There was an error')
   }
 }
@@ -56,8 +56,8 @@ exports.authLog = async (req, res) => {
   try {
     const user = await User.findById(req.user.id).select('-password')
     res.json({ user })
-  } catch (err) {
-    console.log(err)
+  } catch (error) {
+    console.log(error)
     res.status(500).json({ msg: 'There was an error' })
   }
 }
