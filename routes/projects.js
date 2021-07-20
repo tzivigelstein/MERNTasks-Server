@@ -6,7 +6,7 @@ const { check } = require('express-validator')
 
 //Crear projectos
 //api/projects
-router.post('/', auth, [check('name', 'Project name is required').not().isEmpty()], projectController.newProject)
+router.post('/', auth, [check('name', 'Project name is required').not().isEmpty()], projectController.createProject)
 
 router.get('/', auth, projectController.getProjects)
 

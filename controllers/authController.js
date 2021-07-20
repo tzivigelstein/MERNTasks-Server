@@ -2,7 +2,8 @@ const User = require('../models/User')
 const bcryptjs = require('bcryptjs')
 const { validationResult } = require('express-validator')
 const jwt = require('jsonwebtoken')
-const { secret } = require('../config/vars')
+const generateToken = require('../helpers/generateToken')
+const fiveHours = 3600 * 5
 
 exports.authUser = async (req, res) => {
   //Revisar si hay errores
@@ -15,47 +16,35 @@ exports.authUser = async (req, res) => {
   const { email, password } = req.body
 
   try {
-    //Revisar que es un user registrado
     let user = await User.findOne({ email })
     if (!user) {
-      return res.status(400).json({ msg: "User doesn't exist" })
+      return res.status(400).json({ msg: 'Invalid credentials. Please try again.' })
     }
 
-    //Revisar el password
-    const correctPass = await bcryptjs.compare(password, user.password)
-    if (!correctPass) {
-      return res.status(400).json({ msg: 'Incorrect password' })
+    const isPasswordCorrect = await bcryptjs.compare(password, user.password)
+    if (!isPasswordCorrect) {
+      return res.status(400).json({ msg: 'Invalid credentials. Please try again.' })
     }
 
-    //Crear y firmar el JWT
     const payload = {
       user: {
         id: user.id,
       },
     }
 
-    //Firmar el Token
-    jwt.sign(
-      payload,
-      secret,
-      {
-        expiresIn: 3600, // 1 Hora
-      },
-      (error, token) => {
-        if (error) throw error
-        res.json({ token })
-      }
-    )
+    const token = generateToken(payload, fiveHours)
+
+    return res.status(202).json({ token })
   } catch (error) {
     console.log(error)
-    res.status(400).send('There was an error')
+    res.status(400).json({ msg: 'There was an error' })
   }
 }
 
-exports.authLog = async (req, res) => {
+exports.authLog = async ({ user: { id } }, res) => {
   try {
-    const user = await User.findById(req.user.id).select('-password')
-    res.json({ user })
+    const user = await User.findById(id).select('-password')
+    res.status(202).json({ user })
   } catch (error) {
     console.log(error)
     res.status(500).json({ msg: 'There was an error' })

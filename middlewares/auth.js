@@ -7,7 +7,7 @@ module.exports = function (req, res, next) {
 
   //Revisar si no existe un token
   if (!token) {
-    return res.status(401).json({ msg: 'There is no token, not permitted' })
+    return res.status(401).json({ msg: 'Missing or invalid token' })
   }
 
   //Validar el token
@@ -16,6 +16,6 @@ module.exports = function (req, res, next) {
     req.user = encoded.user
     next()
   } catch (error) {
-    res.status(401).json({ msg: 'Invalid token' })
+    res.status(401).json({ msg: 'Missing or invalid token' })
   }
 }

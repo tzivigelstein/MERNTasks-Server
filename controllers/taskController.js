@@ -5,14 +5,12 @@ const { validationResult } = require('express-validator')
 //Crea una nueva tarea
 
 exports.newTask = async (req, res) => {
-  //Revisar el nombre del proyecto
   const errors = validationResult(req)
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() })
   }
 
   try {
-    //Extraer el proyecto y comprobar su existencia
     const { project } = req.body
 
     const existentProject = await Project.findById(project)
@@ -21,25 +19,21 @@ exports.newTask = async (req, res) => {
       res.status(404).send('Project not found')
     }
 
-    //Revisar si el proyecto pertenece al user
     if (existentProject.owner.toString() !== req.user.id) {
       return res.status(401).json({ msg: 'Not permitted' })
     }
 
-    //Crear tarea
     const task = new Task(req.body)
     await task.save()
-    res.json({ task })
+    res.json(task)
   } catch (error) {
     console.log(error)
     res.status(500).send('There was an error')
   }
 }
 
-//Obtener tareas por proyectos
 exports.getTasks = async (req, res) => {
   try {
-    //Extraer el proyecto y comprobar su existencia
     const { project } = req.query
 
     const existentProject = await Project.findById(project)
