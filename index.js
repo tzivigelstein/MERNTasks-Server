@@ -10,7 +10,7 @@ const app = express()
 connectDB()
 
 //Enable CORS
-app.use(cors({ origin: '*' }))
+app.use(cors({ origin: frontendUrl }))
 
 //Enable JSON parsing
 app.use(express.json())
