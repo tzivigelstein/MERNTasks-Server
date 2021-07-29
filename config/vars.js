@@ -6,7 +6,6 @@ const {
   PORT,
   SECRET_CODE: secret,
   PRODUCTION_FRONTEND_URL,
-  DEVELOPMENT_FRONTEND_URL,
 } = process.env
 
 const enviroment = NODE_ENV || 'development'

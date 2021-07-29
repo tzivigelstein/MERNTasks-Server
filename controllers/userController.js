@@ -1,6 +1,7 @@
 const User = require('../models/User')
 const bcryptjs = require('bcryptjs')
 const { validationResult } = require('express-validator')
+const generateToken = require('../helpers/generateToken')
 
 const fiveHours = 3600 * 5
 
