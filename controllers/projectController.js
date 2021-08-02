@@ -17,7 +17,7 @@ exports.createProject = async (req, res) => {
     const color = colors.find(color => color.id === colorId)
 
     newProject.colors = color || getRandomColor()
-    
+
     newProject.save()
     res.json(newProject)
   } catch (error) {
@@ -29,7 +29,16 @@ exports.createProject = async (req, res) => {
 exports.getProjects = async (req, res) => {
   try {
     const projects = await Project.find({ owner: req.user.id })
-    res.json(projects)
+    const parsedProjects = projects.map(({ _id, colors, date, name, icon, owner }) => ({
+      id: _id,
+      colors,
+      date,
+      name,
+      icon,
+      owner,
+    }))
+
+    res.json(parsedProjects)
   } catch (error) {
     console.log(error)
     res.status(500).send('There was an error')

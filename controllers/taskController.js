@@ -49,7 +49,16 @@ exports.getTasks = async (req, res) => {
 
     //Obtener tareas
     const tasks = await Task.find({ project }).sort({ date: -1 })
-    res.json({ tasks })
+
+    const parsedTasks = tasks.map(({ _id, state, date, name, project }) => ({
+      id: _id,
+      state,
+      date,
+      name,
+      project,
+    }))
+
+    res.json(parsedTasks)
   } catch (error) {
     console.log(error)
     res.status(500).send('There was an error')
@@ -85,7 +94,16 @@ exports.updateTasks = async (req, res) => {
     //Guardar tarea
     task = await Task.findOneAndUpdate({ _id: req.params.id }, newTask, { new: true })
 
-    res.json({ task })
+    const taskArray = [task]
+    const parsedTask = taskArray.map(({ _id, state, date, name, project }) => ({
+      id: _id,
+      state,
+      date,
+      name,
+      project,
+    }))[0]
+
+    res.json(parsedTask)
   } catch (error) {
     console.log(error)
     res.status(500).send('There was an error')
