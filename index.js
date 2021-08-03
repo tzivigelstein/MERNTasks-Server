@@ -12,8 +12,6 @@ connectDB()
 //Enable CORS
 app.use(cors({ origin: frontendUrl }))
 
-console.log(frontendUrl)
-
 //Enable JSON parsing
 app.use(express.json())
 
